@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interactive 3D Globe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <header>
+    <h1>Interactive World Map</h1>
+  </header>
+  <div id="globeViz"></div>
+  <button id="toggle-rotation">⏸ Pause Rotation</button>
+  <div id="info-panel">
+    <div id="back-arrow" onclick="hideInfoPanel()">← Back to Globe</div>
+    <h2 id="country-name">Country Information</h2>
+    <img id="country-flag" src="" alt="Flag" onerror="this.style.display='none'" />
+    <ul>
+      <li><strong>Code:</strong> <span id="country-code"></span></li>
+      <li><strong>Population:</strong> <span id="population">Loading...</span></li>
+      <li><strong>Capital:</strong> <span id="capital">Loading...</span></li>
+      <li><strong>Temperature:</strong> <span id="temperature">Loading...</span></li>
+      <li><strong>Wikipedia Summary:</strong>
+        <p id="wikipedia-summary">Loading summary...</p>
+      </li>
+      <li><strong>Current Time:</strong> <span id="current-time">Loading...</span></li>
+      <li><strong>Currency:</strong> <span id="currency-name"></span><br/></li>
+      <li><strong>Exchange Rate to USD:</strong> <span id="exchange-rate-usd"></span></li>
+      <li><strong>National Animal:</strong> <span id="national-animal">N/A</span></li>
+      <li><strong>National Dish:</strong> <span id="national-dish">N/A</span></li>
+      <li><strong>National Tree:</strong> <span id="national-tree">N/A</span></li>
+    </ul>
+  
+    <iframe id="country-map" style="width:100%; height:300px; border:none;" src="about:blank"></iframe>
+  </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Interactive World Map. All rights reserved.</p>
+  </footer>
+
+  
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/globe.gl"></script>
+  <script src="https://unpkg.com/topojson-client@3"></script>
+  <script src="countryMetadata.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

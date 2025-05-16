@@ -1,0 +1,415 @@
+/* General styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url('https://unpkg.com/three-globe/example/img/night-sky.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  color: #eee;
+  box-sizing: border-box;
+  position: absolute;
+  display: flex;
+}
+
+header {
+  background: transparent; /* Removed glass morphism */
+  backdrop-filter: none; /* Apply blur effect */
+  color: #fff;
+  text-align: center;
+  padding: 15px 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  position: fixed; /* Fixed position */
+  top: 0;
+  left: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Ensure space between globe and info panel */
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  position: relative;
+  padding-top: 50px; /* Adjusted margin */
+}
+
+#globeViz {
+  flex: 1;
+  width: 65%;
+  height: 100%;
+  max-height: 100%;
+  min-width: 300px;
+  aspect-ratio: 1 / 1;
+  background-color: transparent;
+  overflow: visible;
+  border: none;
+  border-radius: 0;
+  transition: all 0.5s ease;
+  position: relative;
+  margin-right: 5%;
+}
+
+body.no-info-panel #globeViz {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: unset;
+  border-radius: 0;
+  border: none;
+}
+
+/* Hide the globe when the info panel is visible */
+body.info-panel-visible #globeViz {
+  display: none; /* Hide the globe */
+}
+
+/* Ensure the info panel takes full width when the globe is hidden */
+body.info-panel-visible #info-panel {
+  width: 100%; /* Expand the info panel to full width */
+  height: calc(100vh - 50px); /* Adjust height to fit the viewport */
+  border-radius: 0; /* Remove border radius */
+  box-shadow: none; /* Remove shadow */
+}
+
+canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+/* Toggle button */
+#toggle-rotation {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  padding: 12px 20px;
+  font-size: 16px;
+  background-color: #4080ff;
+  color: #121212;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(30, 100, 255, 0.6);
+  transition: background-color 0.3s ease;
+  display: block !important;
+}
+
+#toggle-rotation:hover {
+  background-color: #80c0ff;
+  color: #fff;
+}
+
+/* Info Panel */
+#info-panel {
+  position: relative;
+  right: 0;
+  width: 30%;
+  height: 100vh;
+  color: #a0e0ff;
+  display: none;
+  z-index: 1;
+  padding: 30px 40px;
+  box-sizing: border-box;
+  border-radius: 20px 0 0 20px;
+  box-shadow: -4px 0 15px rgba(30, 100, 255, 0.6);
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+  background: rgba(10, 20, 40, 0.9);
+}
+
+#back-arrow {
+  font-size: 28px;
+  cursor: pointer;
+  color: #2ecc71;
+  margin-bottom: 25px;
+  font-weight: 700;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+#back-arrow:hover {
+  color: #4080ff;
+}
+
+#country-name {
+  font-size: 30px;
+  margin-top: 10px;
+  font-weight: 700;
+  text-shadow: 0 0 8px #4080ff;
+}
+
+#country-flag {
+  width: 140px;
+  margin-top: 15px;
+  border: 3px solid #4080ff;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(30, 100, 255, 0.8);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  font-size: 18px;
+  line-height: 1.7;
+  margin-top: 20px;
+  color: #b9f6ca;
+  overflow: visible;
+}
+
+ul li {
+  margin: 12px 0;
+}
+
+ul li strong {
+  color: #4080ff;
+}
+
+iframe {
+  margin-top: 30px;
+  width: 100%;
+  height: 280px;
+  border: none;
+  border-radius: 15px;
+  filter: brightness(0.9);
+  box-shadow: 0 0 20px rgba(30, 100, 255, 0.8);
+  display: block;
+}
+
+footer {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  margin-top: 5px;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin:0;
+    padding: 5px 0;
+    bottom: 10px;
+    color: #4080ff;
+    text-shadow: 0 0 10px rgba(30, 100, 255, 0.8);
+}
+
+/* ---  RESPONSIVE BREAKPOINTS  --- */
+
+/* Extra large devices (screens larger than 1440px) */
+@media (min-width: 1441px) {
+  #globeViz {
+    width: 70%;
+  }
+  #info-panel {
+    width: 30%;
+  }
+  #country-name {
+    font-size: 36px;
+  }
+  ul {
+    font-size: 20px;
+  }
+  #toggle-rotation {
+    top: 70px;
+  }
+}
+
+/* Large devices (desktops, 1200px and up) */
+@media (max-width: 1440px) {
+  #globeViz {
+    width: 65%;
+  }
+  #info-panel {
+    width: 35%;
+  }
+  #country-name {
+    font-size: 32px;
+  }
+  ul {
+    font-size: 19px;
+  }
+  #toggle-rotation {
+    top: 70px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 1199px) {
+  .app-container {
+    flex-direction: row;
+  }
+  #globeViz {
+    width: 60%;
+    height: auto;
+    border-radius: 0;
+  }
+  #info-panel {
+    top: 50px;
+    bottom: 50px;
+    width: 40%;
+    height: 75%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  #toggle-rotation {
+    top: 70px;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 767px) and (orientation: landscape) {
+  .app-container {
+    flex-direction: row;
+  }
+  #globeViz {
+    width: 50%;
+    height: auto;
+  }
+  #info-panel {
+    width: 50%;
+    height: auto;
+  }
+  #toggle-rotation {
+    top: 70px;
+  }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575px) {
+  header {
+    padding: 5px 0;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  #toggle-rotation {
+    top: 70px;
+    left: 10px;
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  #country-name {
+    font-size: 22px;
+  }
+
+  #country-flag {
+    width: 90px;
+    margin-top: 8px;
+  }
+
+  iframe {
+    height: 180px;
+    margin-top: 15px;
+  }
+
+  ul {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+
+  footer {
+    padding: 5px;
+    font-size: 0.8rem;
+  }
+
+  #info-panel {
+    position: fixed;
+    top: auto;
+    bottom: 50px;
+    left: 0;
+    width: 100%;
+    height: calc(50vh - 50px);
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -4px 15px rgba(46, 204, 113, 0.8);
+    padding: 15px;
+  }
+}
+
+@media (orientation: portrait) {
+  /* Adjustments for portrait orientation */
+  .app-container {
+    flex-direction: column;
+  }
+
+  #globeViz {
+    width: 100%;
+    height: 65vh;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 10px;
+  }
+
+  #info-panel {
+    width: 100%;
+    height: auto;
+    max-height: calc(35vh - 50px);
+    border-radius: 20px 20px 0 0 !important;
+    overflow-y: auto;
+  }
+
+  .globe-right-layout .app-container {
+    flex-direction: column !important;
+  }
+
+  .globe-right-layout #globeViz {
+    width: 100%;
+    border-radius: 0 0 20px 20px !important;
+  }
+
+  .globe-right-layout #info-panel {
+    width: 100%;
+    border-radius: 20px 20px 0 0 !important;
+  }
+
+  footer {
+    padding: 5px 0;
+  }
+
+  #toggle-rotation {
+    top: 80px;
+  }
+}
+
+@media (orientation: landscape) {
+  /* Adjustments for landscape orientation */
+  .app-container {
+    flex-direction: row;
+    height: calc(100vh - 90px);
+  }
+
+  #globeViz {
+    width: 60%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  #info-panel {
+    width: 40%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    overflow-y: auto;
+  }
+}
